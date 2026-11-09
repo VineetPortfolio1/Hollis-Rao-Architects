@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hollis Rao Architects</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: architecture studio website. Header, hero with a line-drawn elevation, a project explorer (filters, a large selected plan with room labels and facts, a selector grid of plan thumbnails), services, design process, enquiry form, footer. One navy brand color; drawings use line weight and tint only. */
+:root {
+  --bg: #ffffff;
+  --alt: #f3f5f8;
+  --ink: #131c28;
+  --muted: #566172;
+  --line: #dbe1e9;
+  --brand: #1b365d;
+  --brand-ink: #ffffff;
+  --plan: #1b365d;
+  --plan-fill: #dbe6f5;
+  --warm: #b86f1f;
+  --g-hero: linear-gradient(135deg, #e1ecfb 0%, #e8eef8 45%, #f6ecd8 100%);
+  --g-stage: linear-gradient(160deg, #f7faff 0%, #d6e3f4 100%);
+  --g-band: linear-gradient(180deg, #f1f5fb 0%, #e5edf8 100%);
+  --g-draw: linear-gradient(135deg, #eef3fb 0%, #dde8f6 100%);
+  --g-brand: linear-gradient(135deg, #1b365d 0%, #2d5f9e 100%);
+  --g-dark: linear-gradient(135deg, #0e2140 0%, #1b365d 50%, #2f64a3 100%);
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e141b; --alt: #131b25; --ink: #e8edf3; --muted: #9aa6b6; --line: #27323f;
+    --brand: #8fb2e3; --brand-ink: #0a1119; --plan: #8fb2e3; --plan-fill: #1f3552; --warm: #e0a45c;
+    --g-hero: linear-gradient(135deg, #0f1c2e 0%, #13243b 45%, #2d2517 100%); --g-stage: linear-gradient(160deg, #18263a 0%, #101a28 100%); --g-band: linear-gradient(180deg, #121b27 0%, #162434 100%); --g-draw: linear-gradient(135deg, #162538 0%, #1b2f48 100%); --g-brand: linear-gradient(135deg, #8fb2e3 0%, #b8d0f2 100%); --g-dark: linear-gradient(135deg, #08111f 0%, #12284a 50%, #1f4a80 100%);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e141b; --alt: #131b25; --ink: #e8edf3; --muted: #9aa6b6; --line: #27323f;
+  --brand: #8fb2e3; --brand-ink: #0a1119; --plan: #8fb2e3; --plan-fill: #1f3552; --warm: #e0a45c;
+    --g-hero: linear-gradient(135deg, #0f1c2e 0%, #13243b 45%, #2d2517 100%); --g-stage: linear-gradient(160deg, #18263a 0%, #101a28 100%); --g-band: linear-gradient(180deg, #121b27 0%, #162434 100%); --g-draw: linear-gradient(135deg, #162538 0%, #1b2f48 100%); --g-brand: linear-gradient(135deg, #8fb2e3 0%, #b8d0f2 100%); --g-dark: linear-gradient(135deg, #08111f 0%, #12284a 50%, #1f4a80 100%);
+    color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16.5px; line-height: 1.6; margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.inner { max-width: 1080px; margin: 0 auto; }
+.band { margin-inline: calc(50% - 50vw); padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
+.band.alt { background: var(--alt); border-block: 1px solid var(--line); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+header.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 16px; }
+.brand { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
+.brand span { color: var(--muted); font-weight: 400; }
+nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; font-size: 15px; font-weight: 500; align-items: center; }
+nav a { color: var(--ink); text-decoration: none; }
+nav a:hover { color: var(--brand); }
+.btn { display: inline-block; font: inherit; font-weight: 600; font-size: 15px; background: var(--brand); color: var(--brand-ink); border: 1px solid var(--brand); border-radius: 4px; padding: 11px 20px; text-decoration: none; cursor: pointer; }
+.btn:hover { filter: brightness(1.12); }
+.btn.sm { padding: 7px 14px; font-size: 14px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: center; padding-block: 48px 64px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-weight: 600; font-size: clamp(32px, 4.6vw, 50px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 18px; text-wrap: balance; }
+.lede { font-size: 18px; color: var(--muted); margin: 0 0 26px; max-width: 48ch; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--line); }
+.facts strong { display: block; font-size: 28px; font-weight: 600; line-height: 1.1; color: var(--brand); }
+.facts span { font-size: 13.5px; color: var(--muted); }
+.elev { background: var(--alt); border: 1px solid var(--line); border-radius: 6px; padding: 14px; min-width: 0; }
+.elev svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.elev figcaption { font-family: var(--mono); font-size: 11.5px; color: var(--muted); padding: 8px 4px 0; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+section { padding-block: 72px; }
+h2 { font-weight: 600; font-size: clamp(26px, 3.4vw, 34px); line-height: 1.18; letter-spacing: -0.015em; margin: 0 0 10px; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0 0 28px; max-width: 60ch; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.filters button { font: inherit; font-size: 14.5px; font-weight: 500; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 7px 14px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.detail { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); overflow: hidden; margin-bottom: 20px; }
+.detail .drawing { background: var(--alt); padding: 18px; border-right: 1px solid var(--line); min-width: 0; }
+.detail .drawing svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.detail .info { padding: 24px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.detail h3 { margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
+.detail .info p { margin: 0; color: var(--muted); }
+.detail dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; font-size: 15px; border-top: 1px solid var(--line); padding-top: 14px; }
+.detail dt { color: var(--muted); }
+.detail dd { margin: 0; font-variant-numeric: tabular-nums; }
+.thumbs { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+.thumb { font: inherit; text-align: left; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 0; cursor: pointer; overflow: hidden; min-width: 0; }
+.thumb[hidden] { display: none; }
+.thumb:hover { border-color: var(--muted); }
+.thumb[aria-pressed="true"] { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand); }
+.thumb .t { background: var(--alt); padding: 8px; border-bottom: 1px solid var(--line); }
+.thumb svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.thumb .n { padding: 10px 12px 12px; font-size: 14px; font-weight: 600; line-height: 1.3; }
+.thumb .n small { display: block; font-weight: 400; color: var(--muted); font-size: 12.5px; }
+.cols { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.svc { border-top: 2px solid var(--ink); padding-top: 14px; }
+.svc h3 { margin: 0 0 6px; font-size: 19px; }
+.svc p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.process { display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); border: 1px solid var(--line); border-radius: 8px; background: var(--bg); overflow: hidden; }
+.process > div { padding: 20px; border-right: 1px solid var(--line); min-width: 0; }
+.process > div:last-child { border-right: 0; }
+.process .k { font-family: var(--mono); font-size: 12px; color: var(--brand); letter-spacing: 0.06em; text-transform: uppercase; }
+.process h3 { margin: 6px 0 6px; font-size: 18px; }
+.process p { margin: 0; color: var(--muted); font-size: 15px; }
+.contact { display: grid; gap: 48px; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: start; }
+.addr { display: grid; gap: 16px; font-size: 15.5px; margin-top: 8px; }
+.addr b { display: block; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+form { display: grid; gap: 14px; border: 1px solid var(--line); border-radius: 8px; padding: 24px; background: var(--bg); }
+form .row { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+label.f { display: grid; gap: 6px; font-size: 14px; font-weight: 600; min-width: 0; }
+input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; width: 100%; }
+textarea { min-height: 110px; resize: vertical; }
+.msg { margin: 0; font-size: 14px; color: var(--muted); min-height: 1.4em; }
+footer { border-top: 1px solid var(--line); padding-block: 40px 32px; display: grid; gap: 28px; grid-template-columns: 1.4fr 1fr 1fr; font-size: 15px; }
+footer h4 { margin: 0 0 10px; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; color: var(--muted); }
+footer p { margin: 8px 0 0; color: var(--muted); max-width: 34ch; }
+.legal { grid-column: 1 / -1; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; }
+@media (max-width: 860px) {
+  .hero, .contact { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .detail { grid-template-columns: minmax(0, 1fr); }
+  .detail .drawing { border-right: 0; border-bottom: 1px solid var(--line); }
+  .process > div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .process > div:last-child { border-bottom: 0; }
+  footer { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  section { padding-block: 48px; }
+  nav ul { gap: 16px; }
+  form .row { grid-template-columns: minmax(0, 1fr); }
+}
+
+.hero-band { background: var(--g-hero); border-bottom: 1px solid var(--line); }
+.band.alt { background: var(--g-band); }
+.band.alt.dark { background: var(--g-dark); color: #fff; border-color: transparent; }
+.band.dark .sub, .band.dark .process p { color: rgba(255,255,255,0.8); }
+.band.dark .process { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.2); }
+.band.dark .process > div { border-color: rgba(255,255,255,0.2); }
+.band.dark .process .k { color: #f3c88f; }
+.btn { background: var(--g-brand); border-color: transparent; }
+.eyebrow { color: var(--warm); }
+.elev { background: var(--g-stage); }
+.detail .drawing { background: var(--g-draw); }
+.thumb .t { background: var(--g-draw); }
+.facts strong { background: var(--g-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.filters button[aria-pressed="true"] { background: var(--g-brand); border-color: transparent; }
+.svc { border-top: 3px solid transparent; border-image: linear-gradient(90deg, var(--brand), var(--warm)) 1; }
+.thumb[aria-pressed="true"] { box-shadow: 0 0 0 1px var(--brand), 0 8px 22px rgba(27,54,93,0.18); }
+footer { border-image: linear-gradient(90deg, var(--brand), var(--warm)) 1; border-top-width: 3px; }
+</style>
+
+<div class="band hero-band"><div class="inner">
+  <header class="top">
+    <a class="brand" href="#top">Hollis Rao <span>Architects</span></a>
+    <nav aria-label="Main"><ul><li><a href="#projects">Projects</a></li><li><a href="#services">Services</a></li><li><a href="#process">Process</a></li><li><a class="btn sm" href="#contact">Start a project</a></li></ul></nav>
+  </header>
+
+  <div class="hero" id="top">
+    <div>
+      <p class="eyebrow">Architecture studio · Pune</p>
+      <h1>Homes, schools and public buildings, designed to be lived in.</h1>
+      <p class="lede">We are a six-person studio. We design small and mid-sized buildings with a short list of durable materials, good daylight and natural ventilation.</p>
+      <a class="btn" href="#projects">View projects</a>
+      <div class="facts">
+        <div><strong>6</strong><span>People in the studio</span></div>
+        <div><strong>40+</strong><span>Buildings completed</span></div>
+        <div><strong>2012</strong><span>Year founded</span></div>
+      </div>
+    </div>
+    <figure class="elev" style="margin:0">
+      <svg viewBox="0 0 600 340" role="img" aria-label="Line drawing of a house elevation with a pitched roof, deep eaves and a tree">
+        <line x1="10" y1="290" x2="590" y2="290" stroke="var(--plan)" stroke-width="2"/>
+        <path d="M40 290 V170 H300 V290" fill="var(--plan-fill)" stroke="var(--plan)" stroke-width="2.5"/>
+        <path d="M20 172 L170 90 L320 172 Z" fill="none" stroke="var(--plan)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M300 290 V200 H470 V290" fill="var(--plan-fill)" stroke="var(--plan)" stroke-width="2.5"/>
+        <path d="M290 202 H490" stroke="var(--plan)" stroke-width="2.5"/>
+        <rect x="70" y="205" width="60" height="85" fill="none" stroke="var(--plan)" stroke-width="2"/>
+        <rect x="160" y="195" width="110" height="60" fill="none" stroke="var(--plan)" stroke-width="2"/>
+        <line x1="215" y1="195" x2="215" y2="255" stroke="var(--plan)" stroke-width="1.5"/>
+        <line x1="160" y1="225" x2="270" y2="225" stroke="var(--plan)" stroke-width="1.5"/>
+        <rect x="330" y="225" width="120" height="65" fill="none" stroke="var(--plan)" stroke-width="2"/>
+        <g stroke="var(--plan)" stroke-width="1" opacity="0.5"><line x1="345" y1="225" x2="345" y2="290"/><line x1="360" y1="225" x2="360" y2="290"/><line x1="375" y1="225" x2="375" y2="290"/><line x1="390" y1="225" x2="390" y2="290"/><line x1="405" y1="225" x2="405" y2="290"/><line x1="420" y1="225" x2="420" y2="290"/><line x1="435" y1="225" x2="435" y2="290"/></g>
+        <line x1="510" y1="290" x2="510" y2="190" stroke="var(--plan)" stroke-width="2.5"/>
+        <circle cx="510" cy="160" r="44" fill="none" stroke="var(--plan)" stroke-width="2"/>
+        <circle cx="545" cy="190" r="26" fill="none" stroke="var(--plan)" stroke-width="2"/>
+        <g stroke="var(--muted)" stroke-width="1"><line x1="40" y1="316" x2="300" y2="316"/><line x1="40" y1="310" x2="40" y2="322"/><line x1="300" y1="310" x2="300" y2="322"/></g>
+        <text x="170" y="334" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="IBM Plex Mono, monospace">13.0 m</text>
+      </svg>
+      <figcaption><span>South elevation</span><span>Courtyard House, Pune</span></figcaption>
+    </figure>
+  </div>
+</div>
+</div>
+
+<div class="band alt">
+  <div class="inner">
+    <section id="projects" aria-labelledby="p-h">
+      <h2 id="p-h">Selected projects</h2>
+      <p class="sub">Select a project to see its plan, area and structure. Plans are drawn to scale in metres.</p>
+      <div class="filters" id="filters" role="group" aria-label="Filter by building type"></div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+      <div class="thumbs" id="thumbs"></div>
+    </section>
+  </div>
+</div>
+
+<div class="inner">
+  <section id="services" aria-labelledby="s-h">
+    <h2 id="s-h">Services</h2>
+    <p class="sub">We take a project from the first site visit to handover, or join at any stage.</p>
+    <div class="cols">
+      <div class="svc"><h3>Architecture</h3><p>Concept design, approvals drawings, construction drawings and site supervision for new buildings and extensions.</p></div>
+      <div class="svc"><h3>Interiors</h3><p>Layouts, joinery, lighting and material schedules, designed together with the building rather than after it.</p></div>
+      <div class="svc"><h3>Feasibility studies</h3><p>Site analysis, area statements and a cost range before you commit to a plot or a brief.</p></div>
+    </div>
+  </section>
+</div>
+
+<div class="band alt dark">
+  <div class="inner">
+    <section id="process" aria-labelledby="pr-h">
+      <h2 id="pr-h">How a project runs</h2>
+      <p class="sub">Four stages, each ending in a decision from you before we move on.</p>
+      <div class="process">
+        <div><span class="k">Stage 1</span><h3>Brief and site</h3><p>We visit the site, listen to how you will use the building and agree the budget and programme.</p></div>
+        <div><span class="k">Stage 2</span><h3>Concept</h3><p>Plans, sections and a physical model, usually two options, so the decision is easy to see.</p></div>
+        <div><span class="k">Stage 3</span><h3>Detailed design</h3><p>Approval drawings, structure, services and a bill of quantities for builders to price.</p></div>
+        <div><span class="k">Stage 4</span><h3>Construction</h3><p>Fortnightly site visits, checks against the drawings and a snag list at handover.</p></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="inner">
+  <section id="contact" aria-labelledby="c-h">
+    <div class="contact">
+      <div>
+        <h2 id="c-h">Start a project</h2>
+        <p class="sub" style="margin-bottom:12px">Tell us about the site and what you want to build. We reply within two working days.</p>
+        <div class="addr">
+          <div><b>Studio</b>14 Lane 5, Koregaon Park, Pune 411001</div>
+          <div><b>Email</b>studio@hollisrao.example</div>
+          <div><b>Hours</b>Monday to Friday, 10:00 to 18:00</div>
+        </div>
+      </div>
+      <form id="enq" novalidate>
+        <div class="row">
+          <label class="f" for="nm">Name<input id="nm" autocomplete="name"></label>
+          <label class="f" for="em">Email<input id="em" type="email" autocomplete="email"></label>
+        </div>
+        <label class="f" for="ty">Project type
+          <select id="ty"><option>New house</option><option>School or education</option><option>Public or civic building</option><option>Interior or renovation</option></select>
+        </label>
+        <label class="f" for="ms">About the project<textarea id="ms" placeholder="Location, plot size, timeline and rough budget"></textarea></label>
+        <button class="btn" type="submit">Send enquiry</button>
+        <p class="msg" id="msg" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div><a class="brand" href="#top">Hollis Rao <span>Architects</span></a><p>An architecture studio for homes, schools and public buildings.</p></div>
+    <div><h4>Studio</h4><ul><li>Projects</li><li>Services</li><li>Process</li></ul></div>
+    <div><h4>Contact</h4><ul><li>studio@hollisrao.example</li><li>Pune, India</li></ul></div>
+    <div class="legal">Concept design by Vineet. Hollis Rao Architects is a fictional studio made for portfolio purposes; the projects, drawings and contact details are invented.</div>
+  </footer>
+</div>
+
+<script>
+var P = [
+  { id: "court", name: "Courtyard House", type: "Residential", place: "Pune", year: 2023, structure: "Load-bearing brick, RCC slab", desc: "Rooms wrap a shaded courtyard so every space has cross-ventilation and a view of green.",
+    rooms: [["Living",0,0,8,5],["Kitchen",8,0,5,5],["Utility",13,0,3,5],["Study",0,5,5,4],["Bed 2",11,5,5,4],["Bed 3",0,9,8,5],["Master",8,9,8,5]], open: [["Courtyard",5,5,6,4]] },
+  { id: "school", name: "Lakeside Primary School", type: "Education", place: "Nashik", year: 2022, structure: "RCC frame, brick jaali walls", desc: "Eight classrooms along a covered verandah, each opening onto a garden on one side.",
+    rooms: [["Class 1",0,0,7,7],["Class 2",7,0,7,7],["Class 3",14,0,7,7],["Class 4",21,0,7,7],["Class 5",0,10,7,7],["Class 6",7,10,7,7],["Class 7",14,10,7,7],["Class 8",21,10,7,7]], open: [["Verandah",0,7,28,3]] },
+  { id: "library", name: "Mill Road Library", type: "Civic", place: "Indore", year: 2024, structure: "Steel portal frame, timber ceiling", desc: "A long reading hall lit from the north, with a stack room and a small events room.",
+    rooms: [["Reading hall",0,0,20,9],["Stacks",0,9,10,6],["Events",10,9,10,6]], open: [["Entrance court",20,0,4,15]] },
+  { id: "terrace", name: "Terrace Studio", type: "Residential", place: "Delhi", year: 2021, structure: "RCC frame, exposed block walls", desc: "A compact two-level home on a narrow plot, with a roof garden and a light well.",
+    rooms: [["Living",0,0,5,6],["Kitchen",0,6,5,4],["Bedroom",0,10,5,6]], open: [["Light well",5,6,2,4]] },
+  { id: "health", name: "Ward Health Centre", type: "Civic", place: "Jaipur", year: 2023, structure: "RCC frame, plastered masonry", desc: "Reception, consulting rooms and a pharmacy arranged around one daylit waiting hall.",
+    rooms: [["Reception",0,0,8,5],["Consult 1",8,0,6,5],["Consult 2",14,0,6,5],["Pharmacy",0,9,8,6],["Treatment",8,9,6,6],["Store",14,9,6,6]], open: [["Waiting hall",0,5,20,4]] },
+  { id: "orchard", name: "Orchard Classrooms", type: "Education", place: "Dehradun", year: 2020, structure: "Timber frame on concrete plinth", desc: "Three light timber pavilions linked by a shared raised plinth, set among fruit trees.",
+    rooms: [["Pavilion A",0,0,8,6],["Pavilion B",10,3,8,6],["Pavilion C",20,0,8,6]], open: [["Shared plinth",0,6,28,3]] }
+];
+var ns = "http://www.w3.org/2000/svg";
+function area(p) { return p.rooms.reduce(function (s, r) { return s + r[3] * r[4]; }, 0); }
+function plan(p, big) {
+  var all = p.rooms.concat(p.open), mx = 0, my = 0;
+  all.forEach(function (r) { mx = Math.max(mx, r[1] + r[3]); my = Math.max(my, r[2] + r[4]); });
+  var VW = 360, VH = big ? 270 : 200, pad = big ? 22 : 12, u = Math.min((VW - pad * 2) / mx, (VH - pad * 2 - (big ? 18 : 0)) / my);
+  var ox = (VW - mx * u) / 2, oy = pad;
+  var svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("viewBox", "0 0 " + VW + " " + VH);
+  svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", "Floor plan of " + p.name);
+  function add(n, a, t) { var e = document.createElementNS(ns, n); for (var k in a) e.setAttribute(k, a[k]); if (t) e.textContent = t; svg.appendChild(e); }
+  p.open.forEach(function (r) {
+    add("rect", { x: ox + r[1] * u, y: oy + r[2] * u, width: r[3] * u, height: r[4] * u, fill: "none", stroke: "var(--muted)", "stroke-width": 1, "stroke-dasharray": "4 3" });
+    if (big) add("text", { x: ox + (r[1] + r[3] / 2) * u, y: oy + (r[2] + r[4] / 2) * u + 3, "text-anchor": "middle", "font-size": 8.5, fill: "var(--muted)", "font-family": "IBM Plex Mono, monospace" }, r[0]);
+  });
+  p.rooms.forEach(function (r) {
+    add("rect", { x: ox + r[1] * u, y: oy + r[2] * u, width: r[3] * u, height: r[4] * u, fill: "var(--plan-fill)", stroke: "var(--plan)", "stroke-width": big ? 2.4 : 2 });
+    if (big && r[3] * u > 34) add("text", { x: ox + (r[1] + r[3] / 2) * u, y: oy + (r[2] + r[4] / 2) * u + 3, "text-anchor": "middle", "font-size": 9, fill: "var(--ink)", "font-family": "IBM Plex Mono, monospace" }, r[0]);
+  });
+  if (big) {
+    var step = mx > 20 ? 10 : 5, y0 = VH - 14, x0 = ox;
+    add("line", { x1: x0, x2: x0 + step * u, y1: y0, y2: y0, stroke: "var(--ink)", "stroke-width": 1.5 });
+    add("line", { x1: x0, x2: x0, y1: y0 - 4, y2: y0 + 4, stroke: "var(--ink)", "stroke-width": 1.5 });
+    add("line", { x1: x0 + step * u, x2: x0 + step * u, y1: y0 - 4, y2: y0 + 4, stroke: "var(--ink)", "stroke-width": 1.5 });
+    add("text", { x: x0 + step * u + 8, y: y0 + 3.5, "font-size": 9, fill: "var(--muted)", "font-family": "IBM Plex Mono, monospace" }, step + " m");
+    add("text", { x: VW - 14, y: VH - 11, "text-anchor": "end", "font-size": 9, fill: "var(--muted)", "font-family": "IBM Plex Mono, monospace" }, "N ↑");
+  }
+  return svg;
+}
+var detail = document.getElementById("detail"), thumbs = document.getElementById("thumbs"), fil = document.getElementById("filters");
+var current = P[0], btns = [];
+function show(p) {
+  current = p;
+  detail.textContent = "";
+  var dr = document.createElement("div"); dr.className = "drawing"; dr.appendChild(plan(p, true));
+  var inf = document.createElement("div"); inf.className = "info";
+  var h = document.createElement("h3"); h.textContent = p.name;
+  var d = document.createElement("p"); d.textContent = p.desc;
+  var dl = document.createElement("dl");
+  [["Type", p.type], ["Location", p.place], ["Completed", String(p.year)], ["Built area", area(p).toLocaleString("en-IN") + " m²"], ["Rooms", String(p.rooms.length)], ["Structure", p.structure]].forEach(function (kv) {
+    var dt = document.createElement("dt"); dt.textContent = kv[0]; var dd = document.createElement("dd"); dd.textContent = kv[1]; dl.appendChild(dt); dl.appendChild(dd);
+  });
+  inf.appendChild(h); inf.appendChild(d); inf.appendChild(dl);
+  detail.appendChild(dr); detail.appendChild(inf);
+  btns.forEach(function (b) { b.el.setAttribute("aria-pressed", String(b.p === p)); });
+}
+P.forEach(function (p) {
+  var b = document.createElement("button"); b.type = "button"; b.className = "thumb";
+  var t = document.createElement("div"); t.className = "t"; t.appendChild(plan(p, false));
+  var n = document.createElement("div"); n.className = "n"; n.textContent = p.name;
+  var s = document.createElement("small"); s.textContent = p.type + " · " + p.place; n.appendChild(s);
+  b.appendChild(t); b.appendChild(n);
+  b.addEventListener("click", function () { show(p); });
+  thumbs.appendChild(b); btns.push({ p: p, el: b });
+});
+var types = ["All"]; P.forEach(function (p) { if (types.indexOf(p.type) < 0) types.push(p.type); });
+types.forEach(function (t) {
+  var b = document.createElement("button"); b.type = "button"; b.textContent = t; b.setAttribute("aria-pressed", String(t === "All"));
+  b.addEventListener("click", function () {
+    Array.prototype.forEach.call(fil.children, function (c) { c.setAttribute("aria-pressed", String(c === b)); });
+    var first = null;
+    btns.forEach(function (x) { var ok = t === "All" || x.p.type === t; x.el.hidden = !ok; if (ok && !first) first = x.p; });
+    if (first && (t !== "All" && current.type !== t)) show(first);
+  });
+  fil.appendChild(b);
+});
+show(P[0]);
+
+document.getElementById("enq").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var m = document.getElementById("msg");
+  if (!document.getElementById("nm").value.trim()) { m.textContent = "Enter your name."; return; }
+  if (!/^\S+@\S+\.\S+$/.test(document.getElementById("em").value.trim())) { m.textContent = "Enter a valid email address."; return; }
+  m.textContent = "This is a concept page, so the enquiry was not sent.";
+});
+</script>
